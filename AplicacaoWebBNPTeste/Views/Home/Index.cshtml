@@ -1,0 +1,134 @@
+﻿@model AplicacaoWebBNPTeste.Models.Produto
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-12 col-lg-12 d-flex mb-3">
+    <form action="/Cadastrar" id="formCadastroFullSize" name="formCadastroFullSize" method="post">
+        <input type="hidden" id="datacadastro" name="datacadastro" value="@ViewData["datacadastro"]" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Mês:</label>
+                    <input asp-for="produtocosif.movimentomanual.DAT_MES" id="produtocosif.movimentomanual.DAT_MES" name="produtocosif.movimentomanual.DAT_MES" type="text" class="form-control" required disabled />
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Produto:</label>
+                    <select asp-for="DES_PRODUTO" id="DES_PRODUTO" name="DES_PRODUTO" class="form-control" required disabled>
+                        <option value="" selected>Selecione...</option>
+                        @foreach (var item in ViewBag.DescricaoProduto)
+                        {
+                            <option value="@item.DES_PRODUTO">@item.DES_PRODUTO</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Valor:</label>
+                    <input asp-for="DES_PRODUTO" id="DES_PRODUTO" name="DES_PRODUTO" type="text" class="form-control" required disabled />
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Valor:</label>
+                    <input asp-for="produtocosif.movimentomanual.VAL_VALOR" id="produtocosif.movimentomanual.VAL_VALOR" name="produtocosif.movimentomanual.VAL_VALOR" type="text" class="form-control" required disabled />
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Descrição:</label>
+                    <input asp-for="produtocosif.movimentomanual.DES_DESCRICAO" id="produtocosif.movimentomanual.DES_DESCRICAO" name="produtocosif.movimentomanual.DES_DESCRICAO" type="text" class="form-control" required disabled />
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="reset" class="btn text-light text-uppercase font-weight-bold">Limpar</button>
+                    <button type="button" onclick="HabilitaCampos();" class="btn text-light text-uppercase font-weight-bold">Novo</button>
+                    <button type="submit" id="btEnviar" name="btEnviar" class="btn text-light text-uppercase font-weight-bold" disabled>Incluir</button>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Ano:</label>
+                    <input asp-for="produtocosif.movimentomanual.DAT_ANO" id="produtocosif.movimentomanual.DAT_ANO" name="produtocosif.movimentomanual.DAT_ANO" type="text" class="form-control" required disabled />
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="font-weight-bold">Cosif:</label>
+                    <select asp-for="produtocosif.COD_COSIF" id="produtocosif.COD_COSIF" name="produtocosif.COD_COSIF" class="form-control" required disabled>
+                        <option value="" selected>Selecione...</option>
+                        @foreach (var item in ViewBag.Cosif)
+                        {
+                            <option value="@item.COD_COSIF">@item.COD_COSIF – (@item.COD_CLASSIFICACAO)</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.Produtos != null)
+        {
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mês
+                                </th>
+                                <th>
+                                    Ano
+                                </th>
+                                <th>
+                                    Código do Produto
+                                </th>
+                                <th>
+                                    Descrição do Produto
+                                </th>
+                                <th class="no-sort">
+                                    NR Lançamento
+                                </th>
+                                <th class="no-sort">
+                                    Descrição
+                                </th>
+                                <th class="no-sort">
+                                    Valor
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Produtos)
+                            {
+                                <tr>
+                                    <td style="vertical-align: middle; text-transform: uppercase;">
+                                        @item.produtocosif.movimentomanual.DAT_MES)
+                                    </td>
+                                    <td>
+                                        @item.produtocosif.movimentomanual.DAT_ANO)
+                                    </td>
+                                    <td style="vertical-align: middle; text-transform: uppercase;">
+                                        @item.COD_PRODUTO)
+                                    </td>
+                                    <td style="vertical-align: middle; text-transform: uppercase;">
+                                        @item.DES_PRODUTO)
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        @item.produtocosif.movimentomanual.NUM_LANCAMENTO)
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        @item.DES_PRODUTO)
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        @item.produtocosif.movimentomanual.VAL_VALOR)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+<script>
+    HabilitaCampos(){
+        $("#produtocosif.movimentomanual.DAT_MES").prop('disabled', false);
+        $("#DES_PRODUTO").prop('disabled', false);
+        $("#produtocosif.movimentomanual.VAL_VALOR").prop('disabled', false);
+        $("#produtocosif.movimentomanual.DES_DESCRICAO").prop('disabled', false);
+        $("#produtocosif.movimentomanual.DAT_ANO").prop('disabled', false);
+        $("#btEnviar").prop('disabled', false);
+    }
+</script>
